@@ -106,11 +106,12 @@ class GessGame:
         gray = (53, 69, 94)
         white = (250, 250, 250)
         off_white = (235, 241, 250)
-        light_brown = (217, 207, 195)
+        green = (147, 219, 167)
+        # light_brown = (217, 207, 195)
         # light_brown = (240, 222, 201)
 
         pygame.init()
-        #pygame.font.init()
+        # pygame.font.init()
 
         # Initialize the display.
         screen = pygame.display.set_mode((800, 800))
@@ -159,14 +160,21 @@ class GessGame:
                                         int(frame + ((margin + height) * row + margin) + height / 2)], 11)
 
         # Text display
-        #font = pygame.font.Font('freesansbold.ttf', 32)
+        # font = pygame.font.Font('freesansbold.ttf', 32)
         font = pygame.font.SysFont('Comic Sans MS', 32)
         turn = self.get_current_player()
+        won = self.get_game_state()
 
         if turn == "x":
             text_to_print = "Black's turn"
         else:
             text_to_print = "White's turn"
+
+        if won != "UNFINISHED":
+            if won == "BLACK_WON":
+                text_to_print = "Black won! Game over"
+            else:
+                text_to_print = "White won! Game over"
 
         text = font.render(text_to_print, True, black, white)
         text_rect = text.get_rect()
@@ -175,12 +183,14 @@ class GessGame:
 
         pygame.display.update()
 
-
         # Play the game!
         while playing:
             event = pygame.event.wait()
 
             if event.type == pygame.QUIT:
+                pygame.display.quit()
+                pygame.quit()
+                exit()
                 playing = False
 
             # if event.type == pygame.MOUSEMOTION:
@@ -199,6 +209,11 @@ class GessGame:
                 x2 = (pos2[0] - frame) // (width + margin)
                 y2 = (pos2[1] - frame) // (height + margin)
 
+                pygame.draw.rect(screen, green, (int(pos2[0]-(1.5 * width)),
+                                                 int(pos2[1]-(1.5 * height)), 3 * width,
+                                                 3 * height), 3)
+                pygame.display.update()
+
                 if self.get_game_state() == "UNFINISHED":
                     self.make_move(x1, y1, x2, y2)
                 else:
@@ -207,24 +222,14 @@ class GessGame:
             elif event.type == pygame.MOUSEBUTTONDOWN and click_1:
                 click_1 = False
                 pos1 = pygame.mouse.get_pos()
+                pygame.draw.rect(screen, green, (int((pos1[0]-(1.5 * width))),
+                                                 int((pos1[1]-(1.5 * height))), 3 * width,
+                                                 3 * height), 3)
+                pygame.display.update()
 
                 # Calculate board coordinates.
                 x1 = (pos1[0] - frame) // (width + margin)
                 y1 = (pos1[1] - frame) // (height + margin)
-                print("1st", x1, y1)
-
-    # def screen_display(self, screen, text_to_print):
-    #         """"""
-    #         # Text display
-    #         black = (0, 0, 0)
-    #         white = (250, 250, 250)
-    #
-    #         #font = pygame.font.Font('freesansbold.ttf', 32)
-    #         font = pygame.font.SysFont('Comic Sans MS', 30)
-    #         text = font.render(text_to_print, True, black, white)
-    #         text_rect = text.get_rect()
-    #         text_rect.center = (120, 40)
-    #         return screen.blit(text, text_rect)
 
     def make_move(self, x1, y1, x2, y2):
         """

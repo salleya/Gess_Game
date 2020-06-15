@@ -1,26 +1,28 @@
 # Author:  Amy Salley
-# Date:  30 May 2020
-# Description:  Plays an abstract board game called Gess.
+# Date:  14 June 2020
+# Description:  This program plays an abstract board game called Gess. Gess is
+# a variant of the games Go and Chess.  "Gess was invented by the Puzzles and
+# Games Ring of the Archimedeans Mathematics Society, which is the mathematical
+# society of Cambridge University (UK)." The complete rules for the game can be
+# found here:  https://www.chessvariants.com/crossover.dir/gess.html
 
 import pygame
 
 
 class GessGame:
     """
-    The GessGame class represents an abstract board game called Gess.
-    Has methods to get the game board, game state, and current player.
-    Also has methods to print the game board, resign the game and
-    make a move.  Communicates with the GamePiece class in order to
-    determine a valid game piece and move direction. Communicates with the
-    Move class in order to determine a valid move and update the board.
+    The GessGame class represents an abstract board game called Gess. Has methods
+    to get the game board, game state, current player, and to make a move.
+    Communicates with the GamePiece class to determine a valid game piece and move
+    direction. Communicates with the Move class to determine a valid move and update
+    the board.
     """
 
     def __init__(self):
         """
-        Initializes the playing board, the state of the game
-        to "UNFINISHED", and the current player to the player with the
-        black stones, represented by 'x'.  The player with white stones
-        is represented by 'o'.
+        Initializes the playing board, the state of the game to "UNFINISHED", and
+        the current player to the player with the black stones, represented by 'x'.
+        The player with white stones is represented by 'o'.
         """
         self._board = [[" ", " ", " ", " ", " ", " ", " ", " ", " ", " ",
                         " ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
@@ -78,20 +80,10 @@ class GessGame:
         """ Returns the current player. """
         return self._current_player
 
-    def resign_game(self):
-        """
-        Lets the current player concede the game.  Updates the state of
-        the game according to the player who won.
-        """
-        if self._current_player == "x":
-            self._game_state = "WHITE_WON"
-
-        elif self._current_player == "o":
-            self._game_state = "BLACK_WON"
-
     def pygame_board(self, board):
         """
-
+        Uses Pygame to create a board. Gets user input from the mouse to
+        move the player's game piece and play the game.
         """
         # Initialize the board dimensions.
         width = 30
@@ -107,11 +99,8 @@ class GessGame:
         white = (255, 255, 255)
         off_white = (235, 241, 250)
         green = (147, 219, 167)
-        # light_brown = (217, 207, 195)
-        # light_brown = (240, 222, 201)
 
         pygame.init()
-        # pygame.font.init()
 
         # Initialize the display.
         screen = pygame.display.set_mode((800, 800))
@@ -133,16 +122,13 @@ class GessGame:
         for row in range(20):
             for col in range(20):
 
-                # pygame.draw.rect(screen, light_brown, [frame + ((margin + width) * col + margin),
-                #                                        frame + ((margin + height) * row + margin), width,
-                #                                        height])
-
                 pygame.draw.line(screen, brown, ((frame + (width+margin)*col), frame),
                                  ((frame + (width+margin)*col), (800 - frame - 10)), 2)
 
                 pygame.draw.line(screen, brown, (frame, (frame + (width + margin) * col)),
                                  ((800 - frame - 10), (frame + (width + margin) * col)), 2)
 
+                # Draw the black stones.
                 if board[row][col] == "x":
                     pygame.draw.circle(screen, black,
                                        [int(frame + ((margin + width) * col + margin) + width / 2),
@@ -151,6 +137,7 @@ class GessGame:
                                        [int(frame + ((margin + width) * col + margin) + width / 2),
                                         int(frame + ((margin + height) * row + margin) + height / 2)], 10)
 
+                # Draw the white stones.
                 if board[row][col] == "o":
                     pygame.draw.circle(screen, black,
                                        [int(frame + ((margin + width) * col + margin) + width / 2),
@@ -159,9 +146,9 @@ class GessGame:
                                        [int(frame + ((margin + width) * col + margin) + width / 2),
                                         int(frame + ((margin + height) * row + margin) + height / 2)], 11)
 
-        # Text display
+        # Create a text display to show the current player or if the game has been won.
         font = pygame.font.Font("CaviarDreams.ttf", 20)
-        # font = pygame.font.SysFont('Comic Sans MS', 20)
+
         turn = self.get_current_player()
         won = self.get_game_state()
 
@@ -187,59 +174,59 @@ class GessGame:
         while playing:
             event = pygame.event.wait()
 
+            # End the game if the Pygame window is closed.
             if event.type == pygame.QUIT:
+                playing = False
                 pygame.display.quit()
                 pygame.quit()
                 exit()
-                playing = False
 
-            # if event.type == pygame.MOUSEMOTION:
-            #     pass
-            #
             if event.type == pygame.MOUSEWHEEL:
                 pass
 
-            # if event.type == pygame.MOUSEBUTTONUP:
-            #     pass
+            # First click selects game piece to move.
+            if event.type == pygame.MOUSEBUTTONDOWN and click_1:
+                click_1 = False
+                pos1 = pygame.mouse.get_pos()
 
-            if event.type == pygame.MOUSEBUTTONDOWN and not click_1:
+                # Convert the mouse position to board coordinates.
+                x1 = (pos1[0] - frame) // (width + margin)
+                y1 = (pos1[1] - frame) // (height + margin)
+
+                # Highlight the selected game piece.
+                pygame.draw.rect(screen, green, (int((pos1[0]-(1.5 * width))),
+                                                 int((pos1[1]-(1.5 * height))), 3 * width,
+                                                 3 * height), 4)
+                pygame.display.update()
+
+            # Second click selects position to move game piece.
+            elif event.type == pygame.MOUSEBUTTONDOWN and not click_1:
                 pos2 = pygame.mouse.get_pos()
 
-                # Calculate board coordinates.
+                # Convert mouse position to board coordinates.
                 x2 = (pos2[0] - frame) // (width + margin)
                 y2 = (pos2[1] - frame) // (height + margin)
 
+                # Highlight the selected move
                 pygame.draw.rect(screen, green, (int(pos2[0]-(1.5 * width)),
                                                  int(pos2[1]-(1.5 * height)), 3 * width,
-                                                 3 * height), 3)
+                                                 3 * height), 4)
                 pygame.display.update()
 
+                # Call the make_move method to complete the move if it is valid.
                 if self.get_game_state() == "UNFINISHED":
                     self.make_move(x1, y1, x2, y2)
                 else:
                     playing = False
 
-            elif event.type == pygame.MOUSEBUTTONDOWN and click_1:
-                click_1 = False
-                pos1 = pygame.mouse.get_pos()
-                pygame.draw.rect(screen, green, (int((pos1[0]-(1.5 * width))),
-                                                 int((pos1[1]-(1.5 * height))), 3 * width,
-                                                 3 * height), 3)
-                pygame.display.update()
-
-                # Calculate board coordinates.
-                x1 = (pos1[0] - frame) // (width + margin)
-                y1 = (pos1[1] - frame) // (height + margin)
-
     def make_move(self, x1, y1, x2, y2):
         """
-        Takes as parameters the center square of the piece being moved
-        and the desired new location of the center square. Communicates
-        with the GamePiece class to validate the game piece and move
-        direction.  Communicates with the Move class to validate the move
-        and make the move.  Updates the game board, the game state, and
-        the current player after a valid move. Returns True for a valid move.
-        Returns False if the move is invalid.
+        Takes as parameters the coordinates of the piece being moved and the desired
+        location of the move. Communicates with the GamePiece class to validate the
+        game piece and move direction.  Communicates with the Move class to validate
+        the move and make the move.  Updates the game board, the game state, and the
+        current player after a valid move. Returns True for a valid move. Returns False
+        if the move is invalid.
         """
         # Make sure the piece is moving.
         if x1 == x2 and y1 == y2:
@@ -458,9 +445,9 @@ class GessGame:
 
     def check_ring(self, board):
         """
-        Checks to see if both players have rings remaining.  Takes the game
-        board to check as a parameter.  Returns a Boolean tuple for the
-        existence of a black ring and a white ring.
+        Checks to see if both players have rings remaining.  Takes the game board to
+        check as a parameter.  Returns a Boolean tuple for the existence of a black
+        ring and a white ring.
         """
         white_ring = False
         black_ring = False
@@ -495,15 +482,14 @@ class GessGame:
 
 class Move:
     """
-    The Move class represents a move in the Gess Game.  Has methods to move in
-    each of the eight directions.  Communicates with the GessGame class in
-    oder to determine a valid move and complete the move if it is valid.
+    The Move class represents a move in the Gess Game.  Has methods to move in each
+    of the eight directions.  Communicates with the GessGame class to determine a
+    valid move and complete the move if it is valid.
     """
 
     def __init__(self, piece, player):
         """
-        Takes as parameters and initializes the 3x3 game piece and the
-        current player.
+        Takes as parameters and initializes the 3x3 game piece and the current player.
         """
         # self._new_board = new_board
         self._piece = piece
@@ -512,9 +498,8 @@ class Move:
     def up_left(self, new_board, old_x, old_y, move_spaces):
         """
         A recursive function that takes as parameters a copy of the game board and
-        the list indices of the old piece center.  Moves the game piece up
-        and to the left. Returns the new game board if the move was valid.
-        Otherwise returns False.
+        the coordinates of the piece center.  Moves the game piece up and to the left.
+        Returns the new game board if the move was valid. Otherwise returns False.
         """
         # Check if a stone blocks the move. Returns False if the piece
         # encounters a stone before the end of the move.
@@ -566,9 +551,8 @@ class Move:
     def up(self, new_board, old_x, old_y, move_spaces):
         """
         A recursive function that takes as parameters a copy of the game board and
-        the list indices of the old piece center.  Moves the game piece up.
-        Returns the new game board if the move was valid.  Otherwise returns
-        False.
+        the coordinates of the piece center.  Moves the game piece up. Returns the new
+        game board if the move was valid.  Otherwise returns False.
         """
         # Check if a stone blocks the move. Returns False if the piece
         # encounters a stone before the end of the move.
@@ -616,9 +600,8 @@ class Move:
     def up_right(self, new_board, old_x, old_y, move_spaces):
         """
         A recursive function that takes as parameters a copy of the game board and
-        the list indices of the old piece center.  Moves the game piece up
-        and to the right. Returns the new game board if the move was valid.
-        Otherwise returns False.
+        the coordinates of the piece center.  Moves the game piece up and to the right.
+        Returns the new game board if the move was valid. Otherwise returns False.
         """
         # Check if a stone blocks the move. Returns False if the piece
         # encounters a stone before the end of the move.
@@ -670,9 +653,8 @@ class Move:
     def left(self, new_board, old_x, old_y, move_spaces):
         """
         A recursive function that takes as parameters a copy of the game board and
-        the list indices of the old piece center.  Moves the game piece to the
-        left. Returns the new game board if the move was valid.  Otherwise returns
-        False.
+        the coordinates of the piece center.  Moves the game piece to the left. Returns
+        the new game board if the move was valid.  Otherwise returns False.
         """
         # Check if a stone blocks the move. Returns False if the piece
         # encounters a stone before the end of the move.
@@ -720,9 +702,8 @@ class Move:
     def right(self, new_board, old_x, old_y, move_spaces):
         """
         A recursive function that takes as parameters a copy of the game board and
-        the list indices of the old piece center.  Moves the game piece to the
-        right. Returns the new game board if the move was valid.  Otherwise returns
-        False.
+        the coordinates of the piece center.  Moves the game piece to the right.
+        Returns the new game board if the move was valid.  Otherwise returns False.
         """
         # Check if a stone blocks the move. Returns False if the piece
         # encounters a stone before the end of the move.
@@ -770,9 +751,8 @@ class Move:
     def down_left(self, new_board, old_x, old_y, move_spaces):
         """
         A recursive function that takes as parameters a copy of the game board and
-        the list indices of the old piece center.  Moves the game piece down
-        ant to the left. Returns the new game board if the move was valid.
-        Otherwise returns False.
+        the coordinates of the piece center.  Moves the game piece down and to the
+        left. Returns the new game board if the move was valid. Otherwise returns False.
         """
         # Check if a stone blocks the move. Returns False if the piece
         # encounters a stone before the end of the move.
@@ -824,9 +804,8 @@ class Move:
     def down(self, new_board, old_x, old_y, move_spaces):
         """
         A recursive function that takes as parameters a copy of the game board and
-        the list indices of the old piece center.  Moves the game piece down.
-        Returns the new game board if the move was valid.  Otherwise returns
-        False.
+        the coordinates of the piece center.  Moves the game piece down. Returns the
+        new game board if the move was valid.  Otherwise returns False.
         """
         # Check if a stone blocks the move. Returns False if the piece
         # encounters a stone before the end of the move.
@@ -874,9 +853,8 @@ class Move:
     def down_right(self, new_board, old_x, old_y, move_spaces):
         """
         A recursive function that takes as parameters a copy of the game board and
-        the list indices of the old piece center.  Moves the game piece down
-        and to the right.  Returns the new game board if the move was valid.
-        Otherwise returns False.
+        the coordinates of the piece center. Moves the game piece down and to the right.
+        Returns the new game board if the move was valid. Otherwise returns False.
         """
         # Check if a stone blocks the move. Returns False if the piece
         # encounters a stone before the end of the move.
@@ -928,20 +906,16 @@ class Move:
 
 class GamePiece:
     """
-    The GamePiece class represents a game piece. Has methods to find list
-    indices from game board coordinates, determine a 3x3 game piece and
-    if the game piece is valid, if the game piece is limited to moving
-    three spaces, and in which directions the game piece can move.
-    Communicates with the GessGame class in order to determine a valid
-    game piece and move.
+    The GamePiece class represents a game piece. Has methods to determine a 3x3 game
+    piece, if the game piece is valid, if the game piece is limited to moving three
+    spaces, and in which directions the game piece can move. Communicates with the
+    GessGame class to determine a valid game piece and move.
     """
 
     def __init__(self, board, player, center_x, center_y):
         """
-        Takes as parameters the current board and player turn from the
-        GessGame class. Takes a string that represents the center of the
-        player's game piece. Initializes the x and y axis, the center x
-        list index, and the center y list index.
+        Takes as parameters the current board and player from the GessGame class, and
+        the coordinates that represent the center of the player's game piece.
         """
 
         self._board = board
@@ -998,8 +972,7 @@ class GamePiece:
 
     def move_three(self):
         """
-        Returns True if move is limited to three squares.
-        Returns False for any distance.
+        Returns True if move is limited to three squares. Returns False for any distance.
         """
         if self._board[self._center_y][self._center_x] == " ":
             return True
@@ -1008,8 +981,7 @@ class GamePiece:
 
     def move_up_left(self):
         """
-        Returns True for valid move up and to the left.
-        Otherwise returns False.
+        Returns True for valid move up and to the left. Otherwise returns False.
         """
         if self._board[self._center_y - 1][self._center_x - 1] == self._player_turn:
             return True
@@ -1018,8 +990,7 @@ class GamePiece:
 
     def move_up(self):
         """
-        Returns True for valid move up.
-        Otherwise returns False.
+        Returns True for valid move up. Otherwise returns False.
         """
         if self._board[self._center_y - 1][self._center_x] == self._player_turn:
             return True
@@ -1028,8 +999,7 @@ class GamePiece:
 
     def move_up_right(self):
         """
-        Returns True for valid move up and to the right.
-        Otherwise returns False.
+        Returns True for valid move up and to the right. Otherwise returns False.
         """
         if self._board[self._center_y - 1][self._center_x + 1] == self._player_turn:
             return True
@@ -1038,8 +1008,7 @@ class GamePiece:
 
     def move_left(self):
         """
-        Returns True for valid move to the left.
-        Otherwise returns False.
+        Returns True for valid move to the left. Otherwise returns False.
         """
         if self._board[self._center_y][self._center_x - 1] == self._player_turn:
             return True
@@ -1048,8 +1017,7 @@ class GamePiece:
 
     def move_right(self):
         """
-        Returns True for valid move to the right.
-        Otherwise returns False.
+        Returns True for valid move to the right. Otherwise returns False.
         """
         if self._board[self._center_y][self._center_x + 1] == self._player_turn:
             return True
@@ -1058,8 +1026,7 @@ class GamePiece:
 
     def move_down_left(self):
         """
-        Returns True for valid move down and to the left.
-        Otherwise returns False.
+        Returns True for valid move down and to the left. Otherwise returns False.
         """
         if self._board[self._center_y + 1][self._center_x - 1] == self._player_turn:
             return True
@@ -1068,8 +1035,7 @@ class GamePiece:
 
     def move_down(self):
         """
-        Returns True for valid move down.
-        Otherwise returns False.
+        Returns True for valid move down. Otherwise returns False.
         """
         if self._board[self._center_y + 1][self._center_x] == self._player_turn:
             return True
@@ -1078,8 +1044,7 @@ class GamePiece:
 
     def move_down_right(self):
         """
-        Returns True for valid move down and to the right.
-        Otherwise returns False.
+        Returns True for valid move down and to the right. Otherwise returns False.
         """
         if self._board[self._center_y + 1][self._center_x + 1] == self._player_turn:
             return True

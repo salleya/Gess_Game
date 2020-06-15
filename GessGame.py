@@ -104,7 +104,7 @@ class GessGame:
         dark_brown = (92, 65, 13)
         black = (0, 0, 0)
         gray = (53, 69, 94)
-        white = (250, 250, 250)
+        white = (255, 255, 255)
         off_white = (235, 241, 250)
         green = (147, 219, 167)
         # light_brown = (217, 207, 195)
@@ -160,8 +160,8 @@ class GessGame:
                                         int(frame + ((margin + height) * row + margin) + height / 2)], 11)
 
         # Text display
-        # font = pygame.font.Font('freesansbold.ttf', 32)
-        font = pygame.font.SysFont('Comic Sans MS', 32)
+        font = pygame.font.Font("CaviarDreams.ttf", 20)
+        # font = pygame.font.SysFont('Comic Sans MS', 20)
         turn = self.get_current_player()
         won = self.get_game_state()
 

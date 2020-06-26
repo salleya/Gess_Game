@@ -27,9 +27,14 @@ White chooses a piece to move:
 
 ![ScreenShot4](https://github.com/salleya/Gess_Game/blob/master/ScreenShot4.png)
 
-The end of the game.  Black breaks White's ring, and wins the game:
+After White's move:
 
 ![ScreenShot5](https://github.com/salleya/Gess_Game/blob/master/ScreenShot5.png)
+
+At the end of the game, Black breaks White's ring and wins the game:
+
+![ScreenShot6](https://github.com/salleya/Gess_Game/blob/master/ScreenShot6.png)
+
 
 
 

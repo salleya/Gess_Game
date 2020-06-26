@@ -23,7 +23,7 @@ After Black's move:
 
 ![ScreenShot3](https://github.com/salleya/Gess_Game/blob/master/ScreenShot3.png)
 
-White chooses a piect to move:
+White chooses a piece to move:
 
 ![ScreenShot4](https://github.com/salleya/Gess_Game/blob/master/ScreenShot4.png)
 

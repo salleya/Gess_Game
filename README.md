@@ -1,18 +1,35 @@
 # Gess_Game
 Plays an abstract strategy board game called Gess
 
-portfolio-project
+According to https://www.chessvariants.com/crossover.dir/gess.html
+"Gess was invented by the Puzzles and Games Ring of the Archimedeans Mathematics Society, which is the mathematical society of Cambridge University (UK). The rules were first published, together with a sample game, by Paul Bolchover in Eureka, Vol. 53, the periodical of the Archimedeans."
 
-Write a class named GessGame for playing an abstract board game called Gess. You can see the rules here: 
+The complete rules are found here: 
 https://www.chessvariants.com/crossover.dir/gess.html
 
-Note that when a piece's move causes it to overlap stones, any stones covered by the footprint get removed, not just those covered by one of the piece's stones. It is not legal to make a move that leaves you without a ring. It's possible for a player to have more than one ring. A player doesn't lose until they have no remaining rings.
+The player's game piece constists of a 3x3 group of stones that move as a unit. The way the player's piece can move depends on the configuration of the stones in the selected piece. Please see the rules for a detailed explanation.  When a piece's move causes it to overlap stones, any stones covered by the footprint get removed, not just those covered by one of the piece's stones. It is not legal to make a move that leaves you without a ring. It's possible for a player to have more than one ring. A player doesn't lose until they have no remaining rings.
 
-Locations on the board are specified using columns and rows labeled 1-20.  The actual board is only columns and rows 2-19.  The center of the piece being moved must stay within the boundaries of rows and columns 2-19. An edge of the piece may go into columns or rows 1 or 20, but any pieces there are removed at the end of the move. Black goes first.
+The game board is a 20x20 grid.  The center of the piece being moved must stay within the boundaries of rows and columns 2-19. An edge of the piece may go into columns or rows 1 or 20, but any pieces there are removed at the end of the move. Black goes first.
 
-There's an online implementation you can try here:
-https://gess.h3mm3.com/
-but it's not 100% consistent with the rules. In the case of any discrepancy between the online game and the rules, you should comply with the rules. One example is that the online game lets you make moves that leave you without a ring, which isn't allowed (if a player wants to end the game, they can just resign). Another example is that the online game lets you choose a piece whose center is off the board (in columns or in rows 1 or 20), which isn't allowed.
+Initial game board setup:
 
-The file must be named: GessGame.py
+![ScreenShot1](https://github.com/salleya/Drag_to_Draw/blob/master/ScreenShot1.png)
+
+Black chooses a piece to move:
+
+![ScreenShot2](https://github.com/salleya/Drag_to_Draw/blob/master/ScreenShot2.png)
+
+After Black's move:
+
+![ScreenShot3](https://github.com/salleya/Drag_to_Draw/blob/master/ScreenShot3.png)
+
+White chooses a piect to move:
+
+![ScreenShot4](https://github.com/salleya/Drag_to_Draw/blob/master/ScreenShot4.png)
+
+The end of the game.  Black breaks White's ring, and wins the game:
+
+![ScreenShot5](https://github.com/salleya/Drag_to_Draw/blob/master/ScreenShot5.png)
+
+
 

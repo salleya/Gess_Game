@@ -13,23 +13,23 @@ The game board is a 20x20 grid.  The center of the piece being moved must stay w
 
 Initial game board setup:
 
-![ScreenShot1](https://github.com/salleya/Drag_to_Draw/blob/master/ScreenShot1.png)
+![ScreenShot1](https://github.com/salleya/Gess_Game/blob/master/ScreenShot1.png)
 
 Black chooses a piece to move:
 
-![ScreenShot2](https://github.com/salleya/Drag_to_Draw/blob/master/ScreenShot2.png)
+![ScreenShot2](https://github.com/salleya/Gess_Game/blob/master/ScreenShot2.png)
 
 After Black's move:
 
-![ScreenShot3](https://github.com/salleya/Drag_to_Draw/blob/master/ScreenShot3.png)
+![ScreenShot3](https://github.com/salleya/Gess_Game/blob/master/ScreenShot3.png)
 
 White chooses a piect to move:
 
-![ScreenShot4](https://github.com/salleya/Drag_to_Draw/blob/master/ScreenShot4.png)
+![ScreenShot4](https://github.com/salleya/Gess_Game/blob/master/ScreenShot4.png)
 
 The end of the game.  Black breaks White's ring, and wins the game:
 
-![ScreenShot5](https://github.com/salleya/Drag_to_Draw/blob/master/ScreenShot5.png)
+![ScreenShot5](https://github.com/salleya/Gess_Game/blob/master/ScreenShot5.png)
 
 
 

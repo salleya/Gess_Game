@@ -1,5 +1,4 @@
 # Author:  Amy Salley
-# Date:  14 June 2020
 # Description:  This program plays an abstract board game called Gess. Gess is
 # a variant of the games Go and Chess. The complete rules for the game can be
 # found here:  https://www.chessvariants.com/crossover.dir/gess.html

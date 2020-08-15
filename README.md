@@ -11,6 +11,9 @@ The player's game piece consists of a 3x3 group of stones that move as a unit. T
 
 The game board is a 20x20 grid.  The center of the piece being moved must stay within the boundaries of rows and columns 2-19. An edge of the piece may go into columns or rows 1 or 20, but all stones there will be removed at the end of the move. Black goes first.
 
+![ScreenGif](https://github.com/salleya/Gess_Game/blob/master/GessGame.gif)
+
+
 Initial game board setup:
 
 ![ScreenShot1](https://github.com/salleya/Gess_Game/blob/master/ScreenShot1.png)

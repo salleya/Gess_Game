@@ -16,27 +16,27 @@ The game board is a 20x20 grid.  The center of the piece being moved must stay w
 
 Initial game board setup:
 
-<img src="https://github.com/salleya/Gess_Game/blob/master/ScreenShot1.png" width="580" height="600" />
+<img src="https://github.com/salleya/Gess_Game/blob/master/ScreenShot1.png" width="600" height="600" />
 
 Black chooses a piece to move:
 
-<img src="https://github.com/salleya/Gess_Game/blob/master/ScreenShot2.png" width="580" height="600" />
+<img src="https://github.com/salleya/Gess_Game/blob/master/ScreenShot2.png" width="600" height="600" />
 
 After Black's move:
 
-<img src="https://github.com/salleya/Gess_Game/blob/master/ScreenShot3.png" width="580" height="600" />
+<img src="https://github.com/salleya/Gess_Game/blob/master/ScreenShot3.png" width="600" height="600" />
 
 White chooses a piece to move:
 
-<img src="https://github.com/salleya/Gess_Game/blob/master/ScreenShot4.png" width="580" height="600" />
+<img src="https://github.com/salleya/Gess_Game/blob/master/ScreenShot4.png" width="600" height="600" />
 
 After White's move:
 
-<img src="https://github.com/salleya/Gess_Game/blob/master/ScreenShot5.png" width="580" height="600" />
+<img src="https://github.com/salleya/Gess_Game/blob/master/ScreenShot5.png" width="600" height="600" />
 
 At the end of the game, Black breaks White's ring and wins the game.
 
-<img src="https://github.com/salleya/Gess_Game/blob/master/ScreenShot6.png" width="580" height="600" />
+<img src="https://github.com/salleya/Gess_Game/blob/master/ScreenShot6.png" width="600" height="600" />
 
 
 

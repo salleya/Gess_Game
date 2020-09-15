@@ -38,5 +38,3 @@ At the end of the game, Black breaks White's ring and wins the game.
 <img src="https://github.com/salleya/Gess_Game/blob/master/ScreenShot6.png" width="600" height="600" />
 
 
-
-
